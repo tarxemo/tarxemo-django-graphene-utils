@@ -158,8 +158,11 @@ def build_no_results_response(message: Optional[str] = None) -> ResponseObject:
     return ResponseObject.get_response(0, message=message or "No results")
 
 
-def build_error_response(message: Optional[str] = None) -> ResponseObject:
-    return ResponseObject.get_response(3, message=message or "Unexpected error")
+def build_error_response(message: Optional[str] = None, code: Optional[int] = None) -> ResponseObject:
+    response = ResponseObject.get_response(3, message=message or "Unexpected error")
+    if code is not None:
+        response.code = code
+    return response
 
 
 def get_paginated_and_non_paginated_data(
@@ -326,5 +329,5 @@ def build_paged_list(
     }
 
 
-def build_error(message: str):
-    return build_error_response(message=message)
+def build_error(message: str, code: Optional[int] = None):
+    return build_error_response(message=message, code=code)
