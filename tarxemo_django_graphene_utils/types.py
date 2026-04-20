@@ -16,3 +16,13 @@ class LocationInput(graphene.InputObjectType):
 class SeriesPoint(graphene.ObjectType):
     label = graphene.String()
     value = graphene.Float()
+
+class DateRangeInput(graphene.InputObjectType):
+    """Input for filtering by date range."""
+    start_date = graphene.Date()
+    end_date = graphene.Date()
+
+class SortInput(graphene.InputObjectType):
+    """Input for sorting."""
+    field = graphene.String(required=True)
+    reverse = graphene.Boolean(default_value=False)
