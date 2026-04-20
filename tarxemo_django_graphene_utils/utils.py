@@ -18,7 +18,7 @@ from .validation import format_validation_error
 
 T = TypeVar("T", bound=Model)
 
-@lru_cache(max_size=128)
+@lru_cache(maxsize=128)
 def _get_type_fields(graphene_type: Type[graphene.ObjectType]) -> List[str]:
     """Internal helper to cache field discovery for Graphene types."""
     meta = getattr(graphene_type, '_meta', None)

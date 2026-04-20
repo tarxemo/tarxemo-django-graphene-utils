@@ -7,8 +7,11 @@ from .pagination import PageObject
 
 class ResponseObject(graphene.ObjectType):
     """Standardized response metadata."""
+    class Meta:
+        name = "BaseResponse"
+    
     id = graphene.Int()
-    status = graphene.Boolean()
+    success = graphene.Boolean()
     code = graphene.Int()
     message = graphene.String()
     errors = graphene.List(ErrorDetail)
@@ -32,7 +35,7 @@ def build_success_response(message: Optional[str] = None) -> ResponseObject:
     res = ResponseRegistry.get_response_data(1)
     return ResponseObject(
         id=res["id"],
-        status=res["status"],
+        success=res["status"],
         code=res["code"],
         message=message if message else TarxemoConfig.get('DEFAULT_SUCCESS_MESSAGE')
     )
@@ -41,7 +44,7 @@ def build_no_results_response(message: Optional[str] = None) -> ResponseObject:
     res = ResponseRegistry.get_response_data(0)
     return ResponseObject(
         id=res["id"],
-        status=res["status"],
+        success=res["status"],
         code=res["code"],
         message=message if message else res["message"]
     )
@@ -50,7 +53,7 @@ def build_error_response(message: Optional[str] = None, code: Optional[int] = No
     res = ResponseRegistry.get_response_data(3)
     return ResponseObject(
         id=res["id"],
-        status=res["status"],
+        success=res["status"],
         code=code if code is not None else res["code"],
         message=message if message else TarxemoConfig.get('DEFAULT_ERROR_MESSAGE')
     )
