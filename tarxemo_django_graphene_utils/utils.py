@@ -189,3 +189,4 @@ def get_paginated_and_non_paginated_data(
 # For backward compatibility
 _to_graphene = to_graphene
 UserFilterInput = BaseFilterInput
+get_paginated_data = get_paginated_and_non_paginated_data

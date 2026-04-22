@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Any, List, Union
+from typing import Optional, Dict, Any, List, Union, Type
 import graphene
 from .config import TarxemoConfig
 from .validation import ErrorDetail
@@ -61,3 +61,16 @@ def build_error_response(message: Optional[str] = None, code: Optional[int] = No
 def build_error(message: str, code: Optional[int] = None) -> ResponseObject:
     """Shortcut for build_error_response."""
     return build_error_response(message=message, code=code)
+
+
+def build_response(dto_class: Type[graphene.ObjectType], data: Any = None, success: bool = True, message: Optional[str] = None, page: Any = None) -> graphene.ObjectType:
+    """
+    Powerful shortcut to build a full ResponseDTO (response + data + page).
+    Matches the pattern used in the PMS project.
+    """
+    if success:
+        response = build_success_response(message=message)
+    else:
+        response = build_error_response(message=message)
+    
+    return dto_class(response=response, data=data, page=page)

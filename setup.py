@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="tarxemo-django-graphene-utils",
-    version="0.2.1",
+    version="0.2.2",
     author="TarXemo",
     description="Shared Django Graphene utilities and DTOs for efficient API development",
     long_description=open("README.md").read() if open("README.md").read() else "",
